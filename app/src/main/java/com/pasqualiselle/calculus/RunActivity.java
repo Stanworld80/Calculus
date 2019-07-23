@@ -4,17 +4,22 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
-public class StartActivity extends AppCompatActivity {
+public class RunActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_run);
+
+        prepareAnswerBtn();
     }
 
-    public void goRunActivity(View view) {
-        Intent intent = new Intent(this, RunActivity.class);
-        startActivity(intent);
+
+    protected  void prepareAnswerBtn()
+    {
+       // EditTextView answerTextView =
     }
+
 }
