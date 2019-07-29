@@ -23,12 +23,14 @@
 
     <TextView
         android:id="@+id/N1_textView"
-        android:layout_width="75dp"
+        android:layout_width="115dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="6"
+        android:gravity="right"
+        android:textAlignment="gravity"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="80sp"
         android:textStyle="bold"
@@ -38,7 +40,7 @@
 
     <TextView
         android:id="@+id/X_textView"
-        android:layout_width="75dp"
+        android:layout_width="55dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -53,7 +55,7 @@
 
     <TextView
         android:id="@+id/N2_textView"
-        android:layout_width="75dp"
+        android:layout_width="115dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
