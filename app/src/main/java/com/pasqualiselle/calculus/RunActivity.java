@@ -50,19 +50,19 @@ public class RunActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actId, KeyEvent keyEvent) {
                 if (actId == EditorInfo.IME_ACTION_SEND) {
                     String userAnswerStr = textView.getText().toString();
-                    boolean gameover = true;
+                    boolean isUserCorrect = false;
                     int userAnswer = -1;
                     if (userAnswerStr.length() > 0) {
                         userAnswer = Integer.parseInt(userAnswerStr);
-                        gameover = (mGoodAnswer == userAnswer);
+                        isUserCorrect = (mGoodAnswer == userAnswer);
                     }
-                    if (gameover) {
+                    if (isUserCorrect) {
+                        prepareQuestion();
+                    }
+                    else {
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
                         return false;
-                    }
-                    else {
-                        prepareQuestion();
                     }
                 }
                 return true;
