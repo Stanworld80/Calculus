@@ -1,6 +1,7 @@
 package com.pasqualiselle.calculus;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,25 +14,35 @@ import static java.lang.Math.random;
 
 public class RunActivity extends AppCompatActivity {
 
+    private SharedPreferences mPreferences;
+
     int mN1 = 0;
     int mN2 = 0;
     int mGoodAnswer  = 0;
-    int mLimitMax = 10;
+    int mLimitMax = 5;
+    int mCurrentScore = 0;
     EditText answerTextView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
 
         answerTextView   = findViewById(R.id.answer_editText);
+        mPreferences = getSharedPreferences(ScoreActivity.PREFERENCES_ID, MODE_PRIVATE);
 
         prepareQuestion();
         prepareAnswerBtn();
     }
 
     protected void prepareQuestion() {
-        mN1 = (int) (random() * (mLimitMax+1));
-        mN2 = (int) (random() * (mLimitMax+1));
+        int prevN1 = mN1;
+        int prevN2 = mN2;
+        while (prevN1 == mN1 || prevN2 == mN2) {
+            mN1 = (int) (random() * (mLimitMax + 1));
+            mN2 = (int) (random() * (mLimitMax + 1));
+        }
         mGoodAnswer = mN1 * mN2;
 
         TextView n1view = findViewById(R.id.N1_textView);
@@ -51,15 +62,17 @@ public class RunActivity extends AppCompatActivity {
                 if (actId == EditorInfo.IME_ACTION_SEND) {
                     String userAnswerStr = textView.getText().toString();
                     boolean isUserCorrect = false;
-                    int userAnswer = -1;
+                    int userAnswer = 0;
                     if (userAnswerStr.length() > 0) {
                         userAnswer = Integer.parseInt(userAnswerStr);
                         isUserCorrect = (mGoodAnswer == userAnswer);
                     }
                     if (isUserCorrect) {
+                        mCurrentScore++;
                         prepareQuestion();
                     }
                     else {
+                        saveScore();
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
                         return false;
@@ -70,4 +83,13 @@ public class RunActivity extends AppCompatActivity {
         });
     }
 
+    private void saveScore()
+    {
+        mPreferences.edit().putInt(ScoreActivity.PREF_KEY_LASTSCORE, mCurrentScore).apply();
+        int currentBestScore = mPreferences.getInt(ScoreActivity.PREF_KEY_BESTSCORE, 0);
+        if (mCurrentScore > currentBestScore)
+        {
+            mPreferences.edit().putInt(ScoreActivity.PREF_KEY_BESTSCORE, mCurrentScore).apply();
+        }
+    }
 }
