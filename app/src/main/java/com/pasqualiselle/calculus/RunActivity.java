@@ -71,7 +71,7 @@ public class RunActivity extends AppCompatActivity {
                     if (isUserCorrect) {
                         mCurrentScore++;
                         prepareQuestion();
-                        Toast.makeText(RunActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RunActivity.this,mCurrentScore + " points !",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         saveScore();
