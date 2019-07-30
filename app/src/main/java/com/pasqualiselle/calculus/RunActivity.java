@@ -48,7 +48,7 @@ public class RunActivity extends AppCompatActivity {
 
             @Override
             public boolean onEditorAction(TextView textView, int actId, KeyEvent keyEvent) {
-                if (actId == EditorInfo.IME_ACTION_DONE) {
+                if (actId == EditorInfo.IME_ACTION_SEND) {
                     String userAnswerStr = textView.getText().toString();
                     int userAnswer = 0;
                     if (userAnswerStr.length() > 0)
@@ -59,10 +59,10 @@ public class RunActivity extends AppCompatActivity {
                     } else {
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
-                        return true;
+                        return false;
                     }
                 }
-                return false;
+                return true;
             }
         });
     }
