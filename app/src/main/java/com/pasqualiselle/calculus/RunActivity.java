@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static java.lang.Math.random;
 
@@ -58,10 +59,12 @@ public class RunActivity extends AppCompatActivity {
                     }
                     if (isUserCorrect) {
                         prepareQuestion();
+                        Toast.makeText(RunActivity.this,"Correct!",Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
+                        Toast.makeText(RunActivity.this,"Game Over",Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 }
