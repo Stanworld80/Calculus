@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.lang.Math.pow;
 import static java.lang.Math.random;
 
 public class RunActivity extends AppCompatActivity {
@@ -78,7 +79,7 @@ public class RunActivity extends AppCompatActivity {
                     }
                     else {
                         mDuration = System.currentTimeMillis() - mStartTime;
-                        mCurrentScore = (mStreak * mStreak * 20000) / mDuration;
+                        mCurrentScore = ((long)pow(mStreak,1.5)  * 20000) / mDuration;
                         saveScore();
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
