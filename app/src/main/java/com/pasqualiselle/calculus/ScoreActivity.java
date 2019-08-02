@@ -35,18 +35,18 @@ public class ScoreActivity extends AppCompatActivity {
         long bestDuration = mPreferences.getLong(PREF_KEY_BEST_DURATION, 0);
 
         TextView lastScoreTextView = findViewById(R.id.lastScoreValue);
-        lastScoreTextView.setText(String.valueOf(lastScore)+"points");
+        lastScoreTextView.setText(String.valueOf(lastScore)+" points");
         TextView lastStreakTextView = findViewById(R.id.lastStreakValue);
         lastStreakTextView.setText(String.valueOf(lastStreak));
         TextView lastDurationTextView = findViewById(R.id.lastDurationValue);
-        lastDurationTextView.setText(String.valueOf(lastDuration)+"ms");
+        lastDurationTextView.setText(String.valueOf(lastDuration)+" ms");
 
         TextView bestScoreTextView = findViewById(R.id.bestScoreValue);
-        bestScoreTextView.setText(String.valueOf(bestScore)+"points");
+        bestScoreTextView.setText(String.valueOf(bestScore)+" points");
         TextView bestStreakTextView = findViewById(R.id.bestStreakValue);
         bestStreakTextView.setText(String.valueOf(bestStreak));
         TextView bestDurationTextView = findViewById(R.id.bestDurationValue);
-        bestDurationTextView.setText(String.valueOf(bestDuration)+"ms");
+        bestDurationTextView.setText(String.valueOf(bestDuration)+" ms");
 
 
     }
