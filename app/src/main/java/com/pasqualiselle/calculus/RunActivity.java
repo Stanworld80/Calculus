@@ -78,7 +78,7 @@ public class RunActivity extends AppCompatActivity {
                     }
                     else {
                         mDuration = System.currentTimeMillis() - mStartTime;
-                        mCurrentScore = (mStreak * 100000) / mDuration;
+                        mCurrentScore = (mStreak * mStreak * 20000) / mDuration;
                         saveScore();
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
