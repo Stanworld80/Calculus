@@ -20,7 +20,10 @@ public class RunActivity extends AppCompatActivity {
     int mN2 = 0;
     int mGoodAnswer  = 0;
     int mLimitMax = 5;
-    int mCurrentScore = 0;
+    int mStreak = 0;
+    long mStartTime = 0;
+    long mDuration = 0;
+    long mCurrentScore = 0;
     EditText answerTextView;
 
 
@@ -34,6 +37,7 @@ public class RunActivity extends AppCompatActivity {
 
         prepareQuestion();
         prepareAnswerBtn();
+        mStartTime = System.currentTimeMillis();
     }
 
     protected void prepareQuestion() {
@@ -68,11 +72,13 @@ public class RunActivity extends AppCompatActivity {
                         isUserCorrect = (mGoodAnswer == userAnswer);
                     }
                     if (isUserCorrect) {
-                        mCurrentScore++;
+                        mStreak++;
                         prepareQuestion();
-                        Toast.makeText(RunActivity.this,mCurrentScore + " points !",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RunActivity.this, mStreak + " streaks !",Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        mDuration = System.currentTimeMillis() - mStartTime;
+                        mCurrentScore = (mStreak * 100000) / mDuration;
                         saveScore();
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
                         finish();
@@ -87,11 +93,15 @@ public class RunActivity extends AppCompatActivity {
 
     private void saveScore()
     {
-        mPreferences.edit().putInt(ScoreActivity.PREF_KEY_LASTSCORE, mCurrentScore).apply();
-        int currentBestScore = mPreferences.getInt(ScoreActivity.PREF_KEY_BESTSCORE, 0);
+        mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_STREAK, mStreak).apply();
+        mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_SCORE, mCurrentScore).apply();
+        mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_DURATION, mDuration).apply();
+        long currentBestScore = mPreferences.getLong(ScoreActivity.PREF_KEY_BEST_SCORE, 0);
         if (mCurrentScore > currentBestScore)
         {
-            mPreferences.edit().putInt(ScoreActivity.PREF_KEY_BESTSCORE, mCurrentScore).apply();
+            mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_SCORE, mCurrentScore).apply();
+            mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_STREAK, mStreak).apply();
+            mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_DURATION, mDuration).apply();
         }
     }
 }

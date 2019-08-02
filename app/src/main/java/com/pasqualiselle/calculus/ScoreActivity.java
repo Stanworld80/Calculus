@@ -10,9 +10,12 @@ public class ScoreActivity extends AppCompatActivity {
     private SharedPreferences mPreferences;
 
     public static final String PREFERENCES_ID = "CalculusPreference";
-    public static final String PREF_KEY_LASTSCORE = "LastScore";
-    public static final String PREF_KEY_BESTSCORE = "BestScore";
-
+    public static final String PREF_KEY_LAST_STREAK = "LastStreak";
+    public static final String PREF_KEY_LAST_SCORE = "LastScore";
+    public static final String PREF_KEY_LAST_DURATION = "LastDuration";
+    public static final String PREF_KEY_BEST_STREAK = "BestStreak";
+    public static final String PREF_KEY_BEST_SCORE = "BestScore";
+    public static final String PREF_KEY_BEST_DURATION = "BestDuration";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +26,28 @@ public class ScoreActivity extends AppCompatActivity {
 
     public void displayLastScore()
     {
-        int lastScore = mPreferences.getInt(PREF_KEY_LASTSCORE, 0);
-        TextView lastScoreTextView = findViewById(R.id.lastScoreValue);
-        lastScoreTextView.setText(String.valueOf(lastScore));
+        long lastScore = mPreferences.getLong(PREF_KEY_LAST_SCORE, 0);
+        long lastStreak = mPreferences.getLong(PREF_KEY_LAST_STREAK, 0);
+        long lastDuration = mPreferences.getLong(PREF_KEY_LAST_DURATION, 0);
 
-        int bestScore = mPreferences.getInt(PREF_KEY_BESTSCORE, 0);
+        long bestScore = mPreferences.getLong(PREF_KEY_BEST_SCORE, 0);
+        long bestStreak = mPreferences.getLong(PREF_KEY_BEST_STREAK, 0);
+        long bestDuration = mPreferences.getLong(PREF_KEY_BEST_DURATION, 0);
+
+        TextView lastScoreTextView = findViewById(R.id.lastScoreValue);
+        lastScoreTextView.setText(String.valueOf(lastScore)+"points");
+        TextView lastStreakTextView = findViewById(R.id.lastStreakValue);
+        lastStreakTextView.setText(String.valueOf(lastStreak));
+        TextView lastDurationTextView = findViewById(R.id.lastDurationValue);
+        lastDurationTextView.setText(String.valueOf(lastDuration)+"ms");
+
         TextView bestScoreTextView = findViewById(R.id.bestScoreValue);
-        bestScoreTextView.setText(String.valueOf(bestScore));
+        bestScoreTextView.setText(String.valueOf(bestScore)+"points");
+        TextView bestStreakTextView = findViewById(R.id.bestStreakValue);
+        bestStreakTextView.setText(String.valueOf(bestStreak));
+        TextView bestDurationTextView = findViewById(R.id.bestDurationValue);
+        bestDurationTextView.setText(String.valueOf(bestDuration)+"ms");
+
+
     }
 }

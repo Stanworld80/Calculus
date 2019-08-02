@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,60 +10,119 @@
         android:id="@+id/scoreTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="70dp"
         android:text="@string/score"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="80sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold" />
+
 
     <TextView
-        android:id="@+id/lastScoreLabel"
+        android:id="@+id/lastScoreLB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="52dp"
-        android:text="Your last Score :"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreTitle" />
+        android:layout_below="@+id/scoreTitle"
+        android:text="last score : "
+        android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/bestScoreLabel"
+        android:id="@+id/lastDurationLB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your best Score :"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastScoreLabel" />
+        android:layout_below="@+id/lastScoreLB"
+        android:text="last duration : "
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:id="@+id/lastStreakLB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastDurationLB"
+        android:text="last streak : "
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:id="@+id/bestScoreLB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastStreakLB"
+        android:layout_marginTop="20dp"
+        android:text="Best score : "
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/bestDurationLB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bestScoreLB"
+        android:text="with duration : "
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/bestStreakLB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bestDurationLB"
+        android:text="with streak : "
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/lastScoreValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="8dp"
+        android:layout_below="@id/scoreTitle"
+        android:layout_toEndOf="@id/lastScoreLB"
         android:text="000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lastScoreLabel"
-        app:layout_constraintTop_toBottomOf="@+id/scoreTitle" />
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/lastDurationValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastScoreValue"
+        android:layout_toEndOf="@id/lastDurationLB"
+        android:text="000"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/lastStreakValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lastDurationValue"
+        android:layout_toEndOf="@id/lastStreakLB"
+        android:text="000"
+        android:textSize="24sp" />
+
 
     <TextView
         android:id="@+id/bestScoreValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/lastStreakValue"
+        android:layout_toEndOf="@id/bestScoreLB"
+        android:layout_marginTop="20dp"
         android:text="000"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
-        app:layout_constraintStart_toEndOf="@+id/bestScoreLabel"
-        app:layout_constraintTop_toBottomOf="@+id/lastScoreValue" />
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/bestDurationValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bestScoreValue"
+        android:layout_toEndOf="@id/bestDurationLB"
+        android:text="000"
+        android:textSize="24sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/bestStreakValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bestDurationValue"
+        android:layout_toEndOf="@id/bestStreakLB"
+        android:text="000"
+        android:textSize="24sp" />
+
+
+</RelativeLayout>
