@@ -19,12 +19,13 @@ public class RunActivity extends AppCompatActivity {
 
     int mN1 = 0;
     int mN2 = 0;
-    int mGoodAnswer  = 0;
+    int mGoodAnswer = 0;
     int mLimitMax = 5;
     int mStreak = 0;
     long mStartTime = 0;
     long mDuration = 0;
     long mCurrentScore = 0;
+    float mSpeed = 0;
     EditText answerTextView;
 
 
@@ -33,7 +34,7 @@ public class RunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_run);
 
-        answerTextView   = findViewById(R.id.answer_editText);
+        answerTextView = findViewById(R.id.answer_editText);
         mPreferences = getSharedPreferences(ScoreActivity.PREFERENCES_ID, MODE_PRIVATE);
 
         prepareQuestion();
@@ -75,15 +76,15 @@ public class RunActivity extends AppCompatActivity {
                     if (isUserCorrect) {
                         mStreak++;
                         prepareQuestion();
-                        Toast.makeText(RunActivity.this, mStreak + " streaks !",Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                        Toast.makeText(RunActivity.this, mStreak + " streaks !", Toast.LENGTH_SHORT).show();
+                    } else {
                         mDuration = System.currentTimeMillis() - mStartTime;
-                        mCurrentScore = ((long)pow(mStreak,1.5)  * 20000) / mDuration;
+                        mCurrentScore = ((long) pow(mStreak, 1.5) * 20000) / mDuration;
+                        mSpeed = (mStreak * 1000) / (float)mDuration;
                         saveScore();
-                        Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER "+userAnswer + " != " +mGoodAnswer );
+                        Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER " + userAnswer + " != " + mGoodAnswer);
                         finish();
-                        Toast.makeText(RunActivity.this,"Game Over",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RunActivity.this, "Game Over", Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 }
@@ -92,14 +93,25 @@ public class RunActivity extends AppCompatActivity {
         });
     }
 
-    private void saveScore()
-    {
+    private void saveScore() {
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_STREAK, mStreak).apply();
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_SCORE, mCurrentScore).apply();
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_DURATION, mDuration).apply();
+        mPreferences.edit().putFloat(ScoreActivity.PREF_KEY_LAST_SPEED, mSpeed).apply();
+
+
+        float currentFastest = mPreferences.getFloat(ScoreActivity.PREF_KEY_FASTEST, 0);
+        if (mSpeed > currentFastest) {
+            mPreferences.edit().putFloat(ScoreActivity.PREF_KEY_FASTEST, mSpeed).apply();
+        }
+
+        long currentLongestStreak = mPreferences.getLong(ScoreActivity.PREF_KEY_LONGEST_STREAK, 0);
+        if (mStreak > currentLongestStreak) {
+            mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LONGEST_STREAK, mStreak).apply();
+        }
+
         long currentBestScore = mPreferences.getLong(ScoreActivity.PREF_KEY_BEST_SCORE, 0);
-        if (mCurrentScore > currentBestScore)
-        {
+        if (mCurrentScore > currentBestScore) {
             mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_SCORE, mCurrentScore).apply();
             mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_STREAK, mStreak).apply();
             mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_DURATION, mDuration).apply();
