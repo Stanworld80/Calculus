@@ -79,7 +79,7 @@ public class RunActivity extends AppCompatActivity {
                     if (isUserCorrect) {
                         mStreak++;
                         prepareQuestion();
-                        lastScoreTextView.setText(mStreak+" streaks!");
+                        lastScoreTextView.setText(mStreak+" Streaks!");
                     } else {
                         mDuration = System.currentTimeMillis() - mStartTime;
                         mCurrentScore = ((long) pow(mStreak, 1.5) * 20000) / mDuration;
