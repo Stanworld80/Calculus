@@ -3,9 +3,16 @@ package com.pasqualiselle.calculus;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class ScoreActivity extends AppCompatActivity {
+
+    ListView listView;
+    ArrayList<String> arrayList = new ArrayList<>();
 
     private SharedPreferences mPreferences;
 
@@ -22,9 +29,13 @@ public class ScoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score);
+        setContentView(R.layout.listview);
         mPreferences = getSharedPreferences(PREFERENCES_ID, MODE_PRIVATE);
-        displayLastScore();
+        listView = findViewById(R.id.listview);
+        displayLastScoreListView();
+        setTitle("SCORE");
+
+
     }
 
     public void displayLastScore()
@@ -63,4 +74,33 @@ public class ScoreActivity extends AppCompatActivity {
 
 
     }
+
+    public void displayLastScoreListView()
+    {
+        long lastScore = mPreferences.getLong(PREF_KEY_LAST_SCORE, 0);
+        long lastStreak = mPreferences.getLong(PREF_KEY_LAST_STREAK, 0);
+        long lastDuration = mPreferences.getLong(PREF_KEY_LAST_DURATION, 0);
+        float lastSpeed = mPreferences.getFloat(PREF_KEY_LAST_SPEED, 0);
+
+        long bestScore = mPreferences.getLong(PREF_KEY_BEST_SCORE, 0);
+        long bestStreak = mPreferences.getLong(PREF_KEY_BEST_STREAK, 0);
+        long bestDuration = mPreferences.getLong(PREF_KEY_BEST_DURATION, 0);
+        long longestStreak = mPreferences.getLong(PREF_KEY_LONGEST_STREAK, 0);
+        float fastest = mPreferences.getFloat(PREF_KEY_FASTEST, 0);
+
+        arrayList.add("last score : "+lastScore+" points");
+        arrayList.add("last streak : "+(lastStreak));
+        arrayList.add("last duration : "+lastDuration + " ms");
+        arrayList.add("last speed : "+String.format("%.03f",lastSpeed)+" points/sec");
+        arrayList.add("best score : "+(bestScore)+" points");
+        arrayList.add("best streak : "+(bestStreak));
+        arrayList.add("best duration : "+(bestDuration)+" ms");
+        arrayList.add("longest streak : "+(longestStreak)+" points");
+        arrayList.add("fastest speed : "+String.format("%.03f",fastest)+" points/sec");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+        listView.setAdapter(arrayAdapter);
+
+    }
+
 }
