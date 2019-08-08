@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.pasqualiselle.calculus.ScoreActivity.PREF_KEY_LAST_SCORE;
 import static java.lang.Math.pow;
 import static java.lang.Math.random;
 
@@ -27,6 +28,7 @@ public class RunActivity extends AppCompatActivity {
     long mCurrentScore = 0;
     float mSpeed = 0;
     EditText answerTextView;
+    TextView lastScoreTextView;
 
 
     @Override
@@ -35,6 +37,7 @@ public class RunActivity extends AppCompatActivity {
         setContentView(R.layout.activity_run);
 
         answerTextView = findViewById(R.id.answer_editText);
+        lastScoreTextView = findViewById(R.id.lastpointsTextView);
         mPreferences = getSharedPreferences(ScoreActivity.PREFERENCES_ID, MODE_PRIVATE);
 
         prepareQuestion();
@@ -76,7 +79,7 @@ public class RunActivity extends AppCompatActivity {
                     if (isUserCorrect) {
                         mStreak++;
                         prepareQuestion();
-                        Toast.makeText(RunActivity.this, mStreak + " streaks !", Toast.LENGTH_SHORT).show();
+                        lastScoreTextView.setText(mStreak+" streaks!");
                     } else {
                         mDuration = System.currentTimeMillis() - mStartTime;
                         mCurrentScore = ((long) pow(mStreak, 1.5) * 20000) / mDuration;
@@ -95,7 +98,7 @@ public class RunActivity extends AppCompatActivity {
 
     private void saveScore() {
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_STREAK, mStreak).apply();
-        mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_SCORE, mCurrentScore).apply();
+        mPreferences.edit().putLong(PREF_KEY_LAST_SCORE, mCurrentScore).apply();
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_DURATION, mDuration).apply();
         mPreferences.edit().putFloat(ScoreActivity.PREF_KEY_LAST_SPEED, mSpeed).apply();
 
@@ -117,4 +120,6 @@ public class RunActivity extends AppCompatActivity {
             mPreferences.edit().putLong(ScoreActivity.PREF_KEY_BEST_DURATION, mDuration).apply();
         }
     }
+
+
 }
