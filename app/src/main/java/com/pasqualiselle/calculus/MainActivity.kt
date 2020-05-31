@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     fun goRunActivity( v  : View)
     {
-
     }
 
 }
