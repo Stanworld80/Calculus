@@ -20,7 +20,13 @@ public class RunActivity extends AppCompatActivity {
     int mN1 = 0;
     int mN2 = 0;
     int mGoodAnswer = 0;
-    int mLimitMax = 5;
+
+    int mLimitFirstMin = 0;
+    int mLimitFirstMax = 9;
+
+    int mLimitSecondMin = 0;
+    int mLimitSecondMax = 9;
+
     int mStreak = 0;
     long mStartTime = 0;
     long mDuration = 0;
@@ -46,9 +52,14 @@ public class RunActivity extends AppCompatActivity {
         int prevN1 = mN1;
         int prevN2 = mN2;
         while (prevN1 == mN1 || prevN2 == mN2) {
-            mN1 = (int) (random() * (mLimitMax + 1));
-            mN2 = (int) (random() * (mLimitMax + 1));
+            mN1 = mLimitFirstMin + (int) (random() * (mLimitFirstMax - mLimitFirstMin + 1));
+            mN2 = mLimitSecondMin + (int) (random() * (mLimitSecondMax - mLimitSecondMin + 1));
         }
+//        if ((int) (random() * 3) == 2) {
+//            int tmp = mN1;
+//            mN1 = mN2;
+//            mN2 = tmp;
+//        }
         mGoodAnswer = mN1 * mN2;
 
         TextView n1view = findViewById(R.id.N1_textView);
@@ -79,8 +90,8 @@ public class RunActivity extends AppCompatActivity {
                         Toast.makeText(RunActivity.this, mStreak + " streaks !", Toast.LENGTH_SHORT).show();
                     } else {
                         mDuration = System.currentTimeMillis() - mStartTime;
-                        mCurrentScore = ((long) pow(mStreak, 1.5) * 20000) / mDuration;
-                        mSpeed = (mStreak * 1000) / (float)mDuration;
+                        mCurrentScore = ((long) pow(mStreak, 1.5) * 24000) / mDuration;
+                        mSpeed = (mStreak * 1000) / (float) mDuration;
                         saveScore();
                         Log.d(this.getClass().toString(), "onEditorAction: WRONG ANSWER " + userAnswer + " != " + mGoodAnswer);
                         finish();
