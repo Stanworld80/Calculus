@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     fun goRunActivity( v  : View)
     {
         Log.println(Log.DEBUG,"DEBUG","TEST")
+        Toast.makeText(this, "good", Toast.LENGTH_SHORT).show()
     }
 
 }
