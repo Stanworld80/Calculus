@@ -43,7 +43,7 @@ public class RunActivity extends AppCompatActivity {
         setContentView(R.layout.activity_run);
 
         answerTextView = findViewById(R.id.answer_editText);
-        lastScoreTextView = findViewById(R.id.lastpointsTextView);
+   //     lastScoreTextView = findViewById(R.id.lastpointsTextView);
         mPreferences = getSharedPreferences(ScoreActivity.PREFERENCES_ID, MODE_PRIVATE);
 
         prepareQuestion();
@@ -90,7 +90,7 @@ public class RunActivity extends AppCompatActivity {
                     if (isUserCorrect) {
                         mStreak++;
                         prepareQuestion();
-                        lastScoreTextView.setText(mStreak+" Streaks!");
+            //            lastScoreTextView.setText(mStreak+" Streaks!");
                     } else {
                         mDuration = System.currentTimeMillis() - mStartTime;
                         mCurrentScore = ((long) pow(mStreak, 1.5) * 24000) / mDuration;
