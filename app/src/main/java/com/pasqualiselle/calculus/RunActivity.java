@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.pasqualiselle.calculus.ScoreActivity.PREF_KEY_LAST_SCORE;
 import static java.lang.Math.pow;
 import static java.lang.Math.random;
 
@@ -109,7 +108,7 @@ public class RunActivity extends AppCompatActivity {
 
     private void saveScore() {
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_STREAK, mStreak).apply();
-        mPreferences.edit().putLong(PREF_KEY_LAST_SCORE, mCurrentScore).apply();
+        mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_SCORE, mCurrentScore).apply();
         mPreferences.edit().putLong(ScoreActivity.PREF_KEY_LAST_DURATION, mDuration).apply();
         mPreferences.edit().putFloat(ScoreActivity.PREF_KEY_LAST_SPEED, mSpeed).apply();
 
