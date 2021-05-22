@@ -14,6 +14,7 @@ class RunFragment : Fragment() {
     private var answer: Int? = null
     private val maxAnswer = 999999999
     private var currentQuestion = Question()
+    private var score = 0
 
     data class Question(val nb1: Int = (0..9).random(), val nb2: Int = (0..9).random()) {
         val expectedResult = nb1 * nb2
@@ -33,7 +34,7 @@ class RunFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.scoreTxt.text = getString(R.string.running_score, score)
         with(binding) {
             btnDEL.setOnClickListener {
                 resetAnswer()
@@ -41,10 +42,14 @@ class RunFragment : Fragment() {
             btnGO.setOnClickListener {
                 val result = checkAnswer()
                 resetAnswer()
-                if (result)
+                if (result) {
+                    score++
+                    binding.scoreTxt.text = getString(R.string.running_score, score)
                     setQuestion()
-                else
-                    findNavController().navigate(R.id.action_runFragment_to_gameOverFragment)
+                }
+                else {
+                    findNavController().navigate(RunFragmentDirections.actionRunFragmentToGameOverFragment(score))
+                }
             }
             val listBtn = listOf(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
             listBtn.forEachIndexed() { idx, it ->
@@ -72,4 +77,5 @@ class RunFragment : Fragment() {
     }
 
     private fun checkAnswer(): Boolean = answer == currentQuestion.expectedResult
+
 }
