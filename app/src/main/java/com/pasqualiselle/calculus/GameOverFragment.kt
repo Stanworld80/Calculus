@@ -15,8 +15,7 @@ class GameOverFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val args  = GameOverFragmentArgs.fromBundle(requireArguments())
+        val args = GameOverFragmentArgs.fromBundle(requireArguments())
         val binding = FragmentGameOverBinding.inflate(layoutInflater, container, false)
         binding.resultTxt.text = getString(R.string.final_score, args.score)
         return binding.root

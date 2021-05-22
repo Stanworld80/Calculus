@@ -46,9 +46,9 @@ class RunFragment : Fragment() {
                     score++
                     binding.scoreTxt.text = getString(R.string.running_score, score)
                     setQuestion()
-                }
-                else {
-                    findNavController().navigate(RunFragmentDirections.actionRunFragmentToGameOverFragment(score))
+                } else {
+                    val action = RunFragmentDirections.actionRunFragmentToGameOverFragment(score)
+                    findNavController().navigate(action)
                 }
             }
             val listBtn = listOf(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
