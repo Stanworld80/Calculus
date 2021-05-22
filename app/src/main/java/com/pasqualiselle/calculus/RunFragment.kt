@@ -11,8 +11,13 @@ import com.pasqualiselle.calculus.databinding.FragmentRunBinding
 class RunFragment : Fragment() {
 
     private lateinit var binding: FragmentRunBinding
-    private var answer  = 0
+    private var answer: Int? = null
     private val maxAnswer = 999999999
+    private var currentQuestion = Question()
+
+    data class Question(val nb1: Int = (0..9).random(), val nb2: Int = (0..9).random()) {
+        val expectedResult = nb1 * nb2
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,26 +26,50 @@ class RunFragment : Fragment() {
         binding = FragmentRunBinding.inflate(
             layoutInflater, container, false
         )
+        resetAnswer()
+        setQuestion()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding) {
 
+        with(binding) {
             btnDEL.setOnClickListener {
-                answer = 0
-                answerTxt.text = ""
+                resetAnswer()
+            }
+            btnGO.setOnClickListener {
+                val result = checkAnswer()
+                resetAnswer()
+                if (result)
+                    setQuestion()
+                else
+                    findNavController().navigate(R.id.action_runFragment_to_gameOverFragment)
             }
             val listBtn = listOf(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
             listBtn.forEachIndexed() { idx, it ->
                 it.setOnClickListener {
-                    if (answer <= (maxAnswer / 10)+idx) {
-                        answer = answer * 10 + idx
-                        answerTxt.text = answer.toString()
-                    }
+                    if (answer != null) {
+                        if (answer!! <= (maxAnswer / 10) + idx)
+                            answer = answer!! * 10 + idx
+                    } else
+                        answer = idx
+                    answerTxt.text = answer.toString()
                 }
             }
         }
     }
+
+    private fun resetAnswer() {
+        answer = null
+        binding.answerTxt.text = ""
+    }
+
+    private fun setQuestion() {
+        currentQuestion = Question()
+        binding.nb1.text = currentQuestion.nb1.toString()
+        binding.nb2.text = currentQuestion.nb2.toString()
+    }
+
+    private fun checkAnswer(): Boolean = answer == currentQuestion.expectedResult
 }
