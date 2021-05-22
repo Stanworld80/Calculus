@@ -18,7 +18,7 @@ class GameOverFragment : Fragment() {
         // Inflate the layout for this fragment
         val args  = GameOverFragmentArgs.fromBundle(requireArguments())
         val binding = FragmentGameOverBinding.inflate(layoutInflater, container, false)
-        binding.resultTxt.text = "Vous avez réussi ${args.score} bonne réponses!!"
+        binding.resultTxt.text = getString(R.string.running_score, args.score)
         return binding.root
     }
 
