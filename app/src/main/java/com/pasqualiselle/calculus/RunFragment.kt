@@ -23,7 +23,7 @@ class RunFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRunBinding.inflate(
             layoutInflater, container, false
         )
@@ -71,7 +71,9 @@ class RunFragment : Fragment() {
     }
 
     private fun setQuestion() {
-        currentQuestion = Question()
+        val previousQuestion = currentQuestion
+        while (currentQuestion == previousQuestion)
+            currentQuestion = Question()
         binding.nb1.text = currentQuestion.nb1.toString()
         binding.nb2.text = currentQuestion.nb2.toString()
     }
