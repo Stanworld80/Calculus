@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.pasqualiselle.calculus.databinding.ActivityMainBinding
 
+val TAG = "Calculus"
 
 class MainActivity : AppCompatActivity() {
 
